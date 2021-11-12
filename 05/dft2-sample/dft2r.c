@@ -133,10 +133,10 @@ int dft2r(K_IMAGE *inp_img, K_IMAGE *out_img) {
           double mk = 2.0 * M_PI * m * k / xsize; 
           double nl = 2.0 * M_PI * n * l / ysize;
 
-          double R = iptr[0][n][m] * (cos(-mk)*cos(-nl) - sin(-mk)*sin(-nl));
-          double C = iptr[1][n][m] * (cos(-mk)*sin(-nl) + sin(-mk)*cos(-nl));
+          double R = iptr[0][n][m] * (cos(mk)*cos(nl) - sin(mk)*sin(nl));
+          double C = iptr[1][n][m] * (cos(mk)*sin(nl) + sin(mk)*cos(nl));
 
-          val += (R+C);
+          val += (R-C);
         }
       }
       val /= xsize * ysize;
