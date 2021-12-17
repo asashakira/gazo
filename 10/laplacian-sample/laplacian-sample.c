@@ -116,13 +116,19 @@ int usage(command)
   return 0;
 }
 
+int dy[] = {1, 0, -1, 0};
+int dx[] = {0, -1, 0, 1};
 void laplacian(K_IMAGE *inp_img, K_IMAGE *out_img) {
   uchar **iptr = (uchar **)k_data(inp_img)[0];
   uchar **optr = (uchar **)k_data(out_img)[0];
-
   for (int y = 1; y < k_ysize(inp_img)-1; y++) {
     for (int x = 1; x < k_xsize(inp_img)-1; x++) {
-      // ここに追加
+      int val = -4*iptr[y][x];
+      for (int d = 0; d < 4; d++) {
+        val += iptr[y+dy[d]][x+dx[d]];
+      }
+      val += 128;
+      optr[y][x] = val < 0 ? 0 : val > 255 ? 255 : val;
     }
   }
   return;
